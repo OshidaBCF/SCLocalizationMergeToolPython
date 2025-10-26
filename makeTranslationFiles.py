@@ -97,30 +97,33 @@ with open(targetStringsPath, 'r', encoding="utf-8-sig") as targetStringsFile:
 
 # Processing replacement for customization
 for key, value in replacements.items():
-    search = re.match("^item_[nN]ame_?([A-Z]{4})[a-zA-Z0-9_]*$", key) 
-    componentType = search.group(1)
+    typeSearch = re.match("^item_[nN]ame_?([A-Z]{4})[a-zA-Z0-9_]*$", key) 
+    restSearch = re.match("^(['a-zA-Z0-9\- ]*) ([a-zA-Z0-9\-]*) ([A-Z])$", value) 
     
-    search = re.match("^(['a-zA-Z0-9\- ]*) ([a-zA-Z0-9\-]*) ([A-Z])$", value)    
-    componentName = search.group(1)
-    componentClass = search.group(2)
-    componentGrade = search.group(3)
-    
-    if not componentTypeShortened:
-        componentType = componentTypeLookup[componentType]
-    
-    if componentClassShortened:
-        componentClass = componentClassLookup[componentClass]
-    
-    if componentTypeCapitalized:
-        componentType = componentType.upper()
-    
-    if componentClassCapitalized:
-        componentClass = componentClass.upper()
-    
-    if componentNameCapitalized:
-        componentName = componentName.upper()
-    replacements[key] = formatedString.format(componentType = componentType, componentClass = componentClass, componentGrade = componentGrade, componentName = componentName)
-    #print(replacements[key])
+    # if replacement isn't a component, do not customize
+    if typeSearch and restSearch:
+        componentType = typeSearch.group(1)
+          
+        componentName = restSearch.group(1)
+        componentClass = restSearch.group(2)
+        componentGrade = restSearch.group(3)
+        
+        if not componentTypeShortened:
+            componentType = componentTypeLookup[componentType]
+        
+        if componentClassShortened:
+            componentClass = componentClassLookup[componentClass]
+        
+        if componentTypeCapitalized:
+            componentType = componentType.upper()
+        
+        if componentClassCapitalized:
+            componentClass = componentClass.upper()
+        
+        if componentNameCapitalized:
+            componentName = componentName.upper()
+        replacements[key] = formatedString.format(componentType = componentType, componentClass = componentClass, componentGrade = componentGrade, componentName = componentName)
+        #print(replacements[key])
 
 # global.ini pre process because there's some weird bytes that like to break stuff
 with open(globalIniPath, 'rb+') as globalIniFile:
