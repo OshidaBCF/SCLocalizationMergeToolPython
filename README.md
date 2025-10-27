@@ -62,4 +62,4 @@ Or, only keep the text but now it's all white and boring.
 Until i find new way to customize text (if they exist) or until CIG update the game UI system to be something else than Adobe Flash, i don't think i'll be able to add anything.<br>
 If by some miracle, you do know more tags/formatting/whatever, please share it, i want to try to make useful stuff for people to have a better time in the verse.
 
-And if by a second miracle, a CIG employee is seeing this, please hire me. (e-mail)[mailto:swann.sanchez9@outlook.fr]
+And if by a second miracle, a CIG employee is seeing this, please hire me. [e-mail](mailto:swann.sanchez9@outlook.fr)
