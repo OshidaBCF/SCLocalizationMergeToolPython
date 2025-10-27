@@ -47,12 +47,11 @@ After more digging i found some interesting stuff in the global.ini, remnants of
 I did managed to find 4 tags that allow to change the color of the text that appear when you tractor beam an item, exactly what i wanted (i also found a T pose emote, /wave in chat if you want)<br>
 Sadly the 4 tags only allow to change to 4 preset color, blue (the same that you see in missions description to highlight poi), green, yellow and red, which isn't much but it's already that i guess.
 
-This allow me to do THIS, which i think is really cool, even if very limited
-
+This allow me to do THIS, which i think is really cool, even if very limited:<br>
 <img width="316" height="88" alt="image" src="https://github.com/user-attachments/assets/e783fc78-ed9d-4fbb-991b-2906feb374fc" /><br>
 
 Of course it would be too easy if everyone worked first try, so obviously something had to break.
-The \<EM> tags do NOT work in the mobiglass (except in teh mission description for some reason), so when looking at a ship loadout this it what it'll look like:
+The \<EM> tags do NOT work in the mobiglass (except in teh mission description for some reason), so when looking at a ship loadout this it what it'll look like:<br>
 <img width="535" height="430" alt="image" src="https://github.com/user-attachments/assets/d4dc062d-d397-4c02-8e33-662520405360" /><br>
 
 Yes it's almost unreadable, but you have the choice.
