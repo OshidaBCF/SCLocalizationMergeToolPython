@@ -19,6 +19,9 @@ key, componentType, componentClass, componentGrade, componentName = None, None, 
 gameInstallPath = R'C:\Program Files\Roberts Space Industries\StarCitizen\Game' # Set your game installation path here
 gameIniWrite = True # Set to True if you want to write directly the global.ini to the game folder
 
+
+
+
 # Those are the Shortened version of the Component type, only change the word after the ':', do NOT modify the 4 leter word
 componentTypeLookup = {"COOL" : "Cooler", "POWR" : "Power Plant", "SHLD" : "Shield", "QDRV" : "Quantum Drive"}
 componentTypeShortened = False
@@ -26,7 +29,6 @@ componentTypeShortened = False
 # Those are the Shortened version of the Component type, only change the 4 leter after the ':', do NOT modify the longer word
 componentClassLookup = {"Military" : "Mili", "Civilian" : "Civi", "Competition" : "Comp", "Stealth" : "Stlh", "Industrial" : "Indu"}
 componentClassShortened = False
-
 
 # This is to change if you want the Type, Name and/or Class to be Capitalized
 componentTypeCapitalized = True
@@ -54,39 +56,54 @@ formatedString = '[{componentType}] <EM2>[{componentClass} {componentGrade}]</EM
 # YOU SHOULD ONLY EDIT ABOVE THIS LINE
 ################## !!!! ##############
 
-scriptDir =  os.getcwd()# Get the script directory
+scriptDir =  os.getcwd() # Get the script directory
 targetStringsPath = scriptDir + '/target_strings.ini' # input file
+modifiedComponentStringsPath = scriptDir + '/listof_components_with_grade_and_type.ini' # input file
 globalIniPath = scriptDir + '/src\global.ini' # source file from Data.p4k
 mergedIniPath = scriptDir + '/output\merged.ini' # Output file
 
-# Check if files exist first, make folders for outpuits if we need them
+# Check if files exist first, make folders for outputs if we need them
 if (not os.path.exists(targetStringsPath)):
-    print("target_strings.ini not found at: {targetStringsPath}")
+    print(f"target_strings.ini not found at: {targetStringsPath}")
+    sys.exit()
+
+if (not os.path.exists(modifiedComponentStringsPath)):
+    print(f"listof_components_with_grade_and_type.ini not found at: {modifiedComponentStringsPath}")
     sys.exit()
 
 if (not os.path.exists(globalIniPath)):
-    print("global.ini not found at: {$globalIniPath}")
+    print(f"global.ini not found at: {globalIniPath}")
     sys.exit()
 
 if (not os.path.exists(gameInstallPath)):
-    print("Directory not found: {$gameInstallPath}")
+    print(f"Directory not found: {gameInstallPath}")
     sys.exit()
 
 outputDir = scriptDir + '/output'
 if (not os.path.exists(outputDir)):
     os.mkdir(outputDir)
-    print("Created output directory: {outputDir}")
+    print(f"Created output directory: {outputDir}")
 
 gameIniPath = gameInstallPath + '/data\Localization\english\global.ini' # now we know the install folder is valid we can stitch on the localization path
 if (gameIniWrite):
     gameLocalizationDir = gameInstallPath + '/data\Localization\english'
     if (not os.path.exists(gameLocalizationDir)):
-        os.mkdir(gameLocalizationDir)
-        print("Created game localization directory: {gameLocalizationDir}")
+        os.makedirs(gameLocalizationDir)
+        print(f"Created game localization directory: {gameLocalizationDir}")
 
 
-# Load target_strings.ini into a hashtable (key -> new value)
 replacements = {}
+# Load listof_components_with_grade_and_type.ini into a hashtable (key -> new value)
+with open(modifiedComponentStringsPath, 'r', encoding="utf-8-sig") as modifiedComponentStringsFile:
+    for line in modifiedComponentStringsFile.readlines():
+        search = re.match('^(.*)=(.*)$', line)
+        if (search):
+            key = search.group(1)
+            value = search.group(2)
+            replacements[key] = value
+
+
+# Load target_strings.ini into the hashtable, loaded second so that target_string.ini override listof_components_with_grade_and_type.ini
 with open(targetStringsPath, 'r', encoding="utf-8-sig") as targetStringsFile:
     for line in targetStringsFile.readlines():
         search = re.match('^(.*)=(.*)$', line)
@@ -94,6 +111,7 @@ with open(targetStringsPath, 'r', encoding="utf-8-sig") as targetStringsFile:
             key = search.group(1)
             value = search.group(2)
             replacements[key] = value
+
 
 # Processing replacement for customization
 for key, value in replacements.items():
