@@ -44,7 +44,7 @@
 The short answer is that i was really bored and wanted to use the newly released tool to make a text format i liked when farming for components<br>
 At first i was just modifying the strings manually with regex, but then i got curious and wanted to see if there was support for string formatting, as some games supports straight up HTML in text<br>
 After more digging i found some interesting stuff in the global.ini, remnants of the common HTML tags, like \<i>, \<b> and even a \<span> with a style that set a background color, but sadly those seems to be extremely old and now deprecated.<br>
-I did managed to find 4 tags that allow to change the color of the text that appear when you tractor beam an item, exactly what i wanted<br>
+I did managed to find 4 tags that allow to change the color of the text that appear when you tractor beam an item, exactly what i wanted.<br>
 Sadly the 4 tags only allow to change to 4 preset color, blue (the same that you see in missions description to highlight poi), green, yellow and red, which isn't much but it's already that i guess.
 
 This allow me to do THIS, which i think is really cool, even if very limited:<br>
